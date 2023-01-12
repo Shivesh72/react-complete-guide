@@ -6,7 +6,7 @@ const ExpenseForm = () => {
     // const [enteredTitle, setEnteredTitle]=useState('');
     // const [enteredAmount, setEnteredAmount]=useState('');
     // const [enteredDate, setEnteredDate]=useState('');
-    
+
     const [userInput, setUserInput]= useState({
         enteredTitle:'',
         enteredAmount:'',
@@ -15,9 +15,17 @@ const ExpenseForm = () => {
 
     const titleChangeHandler = (event) => {
         // setEnteredTitle(event.target.value);
-        setUserInput({
-            ...userInput,
-            enteredTitle:event.target.value,
+        // to be precise whenever react uses state it chedules for the update and later updates the newState
+        // setUserInput({
+        //     ...userInput,
+        //     enteredTitle:event.target.value,
+        // });  
+        // when we use this process we might get previous update or wrong state cause 
+        //it is not updating right now but istead schedules for later period
+
+        //instead use this it gurantees that your newstate value will be updated using latest update
+        setUserInput((prevState) =>{
+            return {...prevState,enteredTitle:event.target.value};
         });
     };
     const amountChangeHandler = (event) => {
